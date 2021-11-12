@@ -10,14 +10,14 @@ startts = time.time()
 
 languages = {
     "en": {
-        "spMpTxt": "Please enter waiting time per refresh (max 10, min 0.001, default 0.1) (less = faster refresh and simulation) (press ENTER to skip, it will automaticly set it to default)",
+        "spMpTxt": "Please enter waiting time per refresh (max 10, min 0.001, default 0.1, you can type 'none' to disable waiting time) (less = faster refresh and simulation) (press ENTER to skip, it will automaticly set it to default)",
         "endGameTxt": " days survived and dollar is now 9 Turkish Liras. Press ENTER to still continue.",
         "mainDay": "Day: ",
         "mainDollar": " - Dollar: ",
         "rpcDtls": "Running Turkish economy simulation."
     },
     "tr": {
-        "spMpTxt": "Lütfen yenileme başı bekleme süresi giriniz (en fazla 10, en az 0.001, normal 0.1) (az = daha hızlı yenileme ve simülasyon) (ENTER basarak geç, otomatik normal değeri ayarlıyacaktır)",
+        "spMpTxt": "Lütfen yenileme başı bekleme süresi giriniz (en fazla 10, en az 0.001, normal 0.1, 'none' yazarak beklemeyi kapatabilirsiniz) (az = daha hızlı yenileme ve simülasyon) (ENTER basarak geç, otomatik normal değeri ayarlıyacaktır)",
         "endGameTxt": " gün hayatta kaldın ve dolar artık 9 lira. Yine de devam etmek için ENTER'a bas.",
         "mainDay": "Gün: ",
         "mainDollar": " - Dolar: ",
@@ -32,6 +32,7 @@ if rp == True:
 dollar = 1
 days = 0
 devamet = False
+enableCooldown = True
 lang = "tr"
 
 print("-------------------------------------------------")
@@ -47,7 +48,11 @@ speedMultiplier = input(languages[lang]["spMpTxt"] + "\n> ")
 try:
     speedMultiplier = float(speedMultiplier)
 except Exception:
-    speedMultiplier = 0.1
+    if speedMultiplier == "none":
+        enableCooldown = False
+        speedMultiplier = 0.1
+    else:
+        speedMultiplier = 0.1
 
 speedMultiplier = float(speedMultiplier)
 if speedMultiplier > 10:
@@ -72,4 +77,5 @@ while True:
     if round(days / 50) == days / 50:
         if rp == True:
             RPC.update(details=languages[lang]["rpcDtls"], state=languages[lang]["mainDay"] + str(days) + languages[lang]["mainDollar"] + str(dollar), start=startts)
-    time.sleep(speedMultiplier)
+    if enableCooldown == True:
+        time.sleep(speedMultiplier)
