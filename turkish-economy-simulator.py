@@ -69,7 +69,7 @@ while True:
         dollar = 0
     dollar = round(dollar * 10000) / 10000
     print(languages[lang]["mainDay"] + str(days) + languages[lang]["mainDollar"] + str(dollar))
-    if (dollar > 10 and devamet == False):
+    if (dollar > 11 and devamet == False):
         if lang == "tr":
             print(str(days) + languages[lang]["endGameTxt"])
         input()
