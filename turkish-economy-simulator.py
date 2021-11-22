@@ -1,24 +1,42 @@
 import random
 import time
 rp = True
+dollarApi = True
+dollarToTry = 11
+
 try:
     from pypresence import Presence
 except ModuleNotFoundError:
     rp = False
+
+try:
+    import requests
+except ModuleNotFoundError:
+    dollarApi = False
+
+if dollarApi == True:
+    try:
+        req = requests.get("https://api.genelpara.com/embed/doviz.json")
+        req = req.json()
+        dollarToTry = float(req["USD"]["satis"])
+    except Exception:
+        print("There was a problem while fetching dollar API. Setted the value to: " + str(dollarToTry))
+    else:
+        print("Fetched the dollar API. Setted the value to: " + str(dollarToTry))
 
 startts = time.time()
 
 languages = {
     "en": {
         "spMpTxt": "Please enter waiting time per refresh (max 10, min 0.001, default 0.1, you can type 'none' to disable waiting time) (less = faster refresh and simulation) (press ENTER to skip, it will automaticly set it to default)",
-        "endGameTxt": " days survived and dollar is now 10 Turkish Liras. Press ENTER to still continue.",
+        "endGameTxt": " days survived and dollar costs more than " + str(dollarToTry) +" Turkish Liras now. Press ENTER to still continue.",
         "mainDay": "Day: ",
         "mainDollar": " - Dollar: ",
         "rpcDtls": "Running Turkish economy simulation."
     },
     "tr": {
         "spMpTxt": "Lütfen yenileme başı bekleme süresi giriniz (en fazla 10, en az 0.001, normal 0.1, 'none' yazarak beklemeyi kapatabilirsiniz) (az = daha hızlı yenileme ve simülasyon) (ENTER basarak geç, otomatik normal değeri ayarlıyacaktır)",
-        "endGameTxt": " gün hayatta kaldın ve dolar artık 10 lira. Yine de devam etmek için ENTER'a bas.",
+        "endGameTxt": " gün hayatta kaldın ve dolar artık " + str(dollarToTry) + " lirayı geçti. Yine de devam etmek için ENTER'a bas.",
         "mainDay": "Gün: ",
         "mainDollar": " - Dolar: ",
         "rpcDtls": "Türk ekonomi simülasyonu yürütüyor."
@@ -69,9 +87,14 @@ while True:
         dollar = 0
     dollar = round(dollar * 10000) / 10000
     print(languages[lang]["mainDay"] + str(days) + languages[lang]["mainDollar"] + str(dollar))
+<<<<<<< Updated upstream
     if (dollar > 11 and devamet == False):
         if lang == "tr":
             print(str(days) + languages[lang]["endGameTxt"])
+=======
+    if (dollar > dollarToTry and devamet == False):
+        print(str(days) + languages[lang]["endGameTxt"])
+>>>>>>> Stashed changes
         input()
         devamet = True
     if round(days / 50) == days / 50:
