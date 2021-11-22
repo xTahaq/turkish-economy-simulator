@@ -87,14 +87,8 @@ while True:
         dollar = 0
     dollar = round(dollar * 10000) / 10000
     print(languages[lang]["mainDay"] + str(days) + languages[lang]["mainDollar"] + str(dollar))
-<<<<<<< Updated upstream
-    if (dollar > 11 and devamet == False):
-        if lang == "tr":
-            print(str(days) + languages[lang]["endGameTxt"])
-=======
     if (dollar > dollarToTry and devamet == False):
         print(str(days) + languages[lang]["endGameTxt"])
->>>>>>> Stashed changes
         input()
         devamet = True
     if round(days / 50) == days / 50:
