@@ -2,7 +2,7 @@ import random
 import time
 rp = True
 dollarApi = True
-dollarToTry = 11
+dollarToTry = 12
 
 try:
     from pypresence import Presence
