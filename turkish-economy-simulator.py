@@ -32,21 +32,24 @@ languages = {
         "endGameTxt": " days survived and dollar costs more than " + str(dollarToTry) +" Turkish Liras now. Press ENTER to still continue.",
         "mainDay": "Day: ",
         "mainDollar": " - Dollar: ",
-        "rpcDtls": "Running Turkish economy simulation."
+        "rpcDtls": "Running Turkish economy simulation.",
+        "rpcStartupTxt": "Starting - github.com/xTahaq/turkish-economy-simulator"
     },
     "tr": {
         "spMpTxt": "Lütfen yenileme başı bekleme süresi giriniz (en fazla 10, en az 0.001, normal 0.1, 'none' yazarak beklemeyi kapatabilirsiniz) (az = daha hızlı yenileme ve simülasyon) (ENTER basarak geç, otomatik normal değeri ayarlıyacaktır)",
         "endGameTxt": " gün hayatta kaldın ve dolar artık " + str(dollarToTry) + " lirayı geçti. Yine de devam etmek için ENTER'a bas.",
         "mainDay": "Gün: ",
         "mainDollar": " - Dolar: ",
-        "rpcDtls": "Türk ekonomi simülasyonu yürütüyor."
+        "rpcDtls": "Türk ekonomi simülasyonu yürütüyor.",
+        "rpcStartupTxt": "Başlatılıyor - github.com/xTahaq/turkish-economy-simulator"
     }
 }
 if rp == True:
     client_id = '853891028401389568' 
     RPC = Presence(client_id,pipe=0) 
     RPC.connect()
-    RPC.update(details="Ekonomi simülasyonu yürütüyor.", state="Başlatılıyor - Kurucu: Taha#4216", start=startts)
+    RPC.update(details=languages["en"]["rpcDtls"], state=languages["en"]["rpcStartupTxt"], start=startts)
+    
 dollar = 1
 days = 0
 devamet = False
@@ -59,9 +62,13 @@ print("Welcome to Turkish Economy Simulator")
 print("")
 print("-------------------------------------------------")
 print("Please enter your preferences to start the app.")
+
 lang = input("Type a language (options: tr, en) (press ENTER to skip - it will automaticly set it to Turkish)\n> ")
 if lang != "tr" and lang != "en":
     lang = "tr"
+
+RPC.update(details=languages[lang]["rpcDtls"], state=languages[lang]["rpcStartupTxt"], start=startts)
+
 speedMultiplier = input(languages[lang]["spMpTxt"] + "\n> ")
 try:
     speedMultiplier = float(speedMultiplier)
