@@ -67,7 +67,7 @@ lang = input("Type a language (options: tr, en) (press ENTER to skip - it will a
 if lang != "tr" and lang != "en":
     lang = "tr"
 
-RPC.update(details=languages[lang]["rpcDtls"], state=languages[lang]["rpcStartupTxt"], start=startts)
+if rp == True: RPC.update(details=languages[lang]["rpcDtls"], state=languages[lang]["rpcStartupTxt"], start=startts)
 
 speedMultiplier = input(languages[lang]["spMpTxt"] + "\n> ")
 try:
